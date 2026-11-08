@@ -297,6 +297,6 @@ Verify all voltages and connections before powering on the modified console.
 
 This project is licensed under the [MIT License](LICENSE).
 
-You're free to use, modify, distribute, and build upon this project, including for commercial purposes, provided the original copyright and license notices are retained.
+You're free to use, modify, distribute, and build upon this project, including for commercial purposes, provided the original copyright and license notices are retained. 
 
 This project is provided as-is, without warranty. Hardware modifications are performed at your own risk.
