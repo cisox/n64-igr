@@ -45,6 +45,9 @@ The sketch uses timing-sensitive AVR code to decode controller communication. In
 | 1 kΩ resistor | 1 | Controller data connection |
 | 220 Ω resistor | 1 | Reset signal connection |
 | Hookup wire | As needed | Thin, flexible insulated wire recommended |
+| Heat-shrink tubing | As needed | Insulates the inline resistors |
+| Electrical tape or insulating mounting material | As needed | Insulates the Arduino from the metal shielding |
+| Kapton tape | As needed | Secures the Arduino and wire routing |
 | Soldering equipment | — | Fine-tip iron, solder, and flux |
 | Multimeter | 1 | For verifying power and signal connections |
 
@@ -54,12 +57,12 @@ An optional NPN transistor circuit can be used to control the reset signal inste
 
 The Arduino Nano requires four connections to the Nintendo 64 motherboard.
 
-| Nintendo 64 Connection | Arduino Nano Pin | Notes |
-|---|---|---|
-| 5V power supply | `5V` | Connect to the Arduino's **5V pin, not VIN** |
-| Ground | `GND` | Common ground between the N64 and Arduino |
-| Controller port 1 DATA | `D2` | Through a 1 kΩ series resistor; input only |
-| Reset switch signal | `D3` | Through a 220 Ω series resistor; open-drain-style output |
+| Nintendo 64 Connection | Wire Color in Example | Arduino Nano Pin | Notes |
+|---|---|---|---|
+| 5V power supply | Red | `5V` | Connect to the Arduino's **5V pin, not VIN** |
+| Ground | Black | `GND` | Common ground between the N64 and Arduino |
+| Controller port 1 DATA | Blue | `D2` | Through a 1 kΩ series resistor; input only |
+| Reset switch signal | Green | `D3` | Through a 220 Ω series resistor; open-drain-style output |
 
 **Important:** The `5V` and `VIN` labels refer to pins on the **Arduino Nano**, not the Nintendo 64. The N64 provides a regulated 5V supply that connects directly to the Arduino's `5V` pin. The Arduino's `VIN` pin feeds its onboard voltage regulator and is not suitable for this connection.
 
@@ -80,6 +83,8 @@ Before connecting the Arduino, verify that the indicated solder point measures a
 - 🔴 **Red circle — Controller 1 DATA:** Connect to Arduino pin `D2` through a **1 kΩ series resistor**.
 - 🟠 **Orange circle — Reset:** Connect to Arduino pin `D3` through a **220 Ω series resistor**.
 - 🔵 **Blue circle — Ground:** Connect to an Arduino Nano `GND` pin.
+
+The circle colors in this image identify **solder points**; they are separate from the wire colors used in the installation photos below.
 
 ### Controller Data Connection
 
@@ -111,12 +116,51 @@ Before connecting the Arduino, verify the reset signal using a multimeter:
 
 If these measurements do not match, verify the solder point before proceeding.
 
+## Installation and Wire Routing
+
+The following photos show one completed installation. The wires are soldered to the motherboard, routed from its underside around the shielding, and brought through openings in the upper metal shield to the Arduino Nano.
+
+### Left Side — Ground and Controller Data
+
+![Left side of the N64 showing black ground and blue controller data wires routed around the shielding](docs/n64-left.png)
+
+Two wires run up the left side of the console:
+
+- **Black — Ground (`GND`):** Connects the motherboard ground point to an Arduino `GND` pin.
+- **Blue — Controller port 1 DATA (`D2`):** Connects the controller data solder point to Arduino pin `D2`. A **1 kΩ resistor** is soldered inline with the blue wire and covered with **heat-shrink tubing** for insulation.
+
+### Right Side — 5V and Reset
+
+![Right side of the N64 showing red 5V and green reset wires routed around the shielding](docs/n64-right.png)
+
+The remaining two wires run up the right side:
+
+- **Red — 5V power (`5V`):** Connects the N64's 5V supply to the Arduino Nano's `5V` pin (not `VIN`).
+- **Green — Reset (`D3`):** Connects the motherboard reset signal to Arduino pin `D3`. A **220 Ω resistor** is soldered inline with the green wire and covered with **heat-shrink tubing**.
+
+### Center — Arduino Mounting
+
+![Arduino Nano mounted on the N64's upper metal shielding, with wires secured using Kapton tape](docs/n64-middle.png)
+
+The left- and right-side wire pairs pass through existing openings in the upper metal shielding and meet at the Arduino Nano, which is mounted on top of the shielding.
+
+In this installation:
+
+- **Electrical tape** covers the underside of the Arduino to help prevent its exposed contacts from touching the metal shielding.
+- **Kapton tape** secures the Arduino and holds the wires in place.
+- The wires are routed close to the shielding to keep them organized and out of the way during reassembly.
+
+This is an example of one mounting arrangement, not a required location. Whatever mounting method you use, ensure the board is electrically insulated, firmly secured, and clear of other components when the console is reassembled. A nonconductive mount or enclosure can provide more reliable insulation than tape alone.
+
+**Check the shielding openings for sharp edges.** Protect wires from abrasion or pinching where they pass through metal, and make sure the console can be reassembled without putting pressure on the Arduino or its solder joints.
+
 ### Electrical Safety
 
 - Verify all four connections before powering on the console.
 - Check for solder bridges and accidental shorts.
 - Ensure the Arduino and N64 share a common ground.
 - Insulate the Arduino and exposed solder joints to prevent contact with the console's shielding.
+- Keep inline resistor leads fully insulated under heat-shrink tubing.
 - **Disconnect the Arduino's 5V connection to the N64 before connecting USB for programming.** USB power can backfeed the console's power rail.
 
 ## Programming the Arduino
@@ -297,6 +341,6 @@ Verify all voltages and connections before powering on the modified console.
 
 This project is licensed under the [MIT License](LICENSE).
 
-You're free to use, modify, distribute, and build upon this project, including for commercial purposes, provided the original copyright and license notices are retained. 
+You're free to use, modify, distribute, and build upon this project, including for commercial purposes, provided the original copyright and license notices are retained.
 
 This project is provided as-is, without warranty. Hardware modifications are performed at your own risk.
